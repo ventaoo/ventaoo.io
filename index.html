@@ -1,34 +1,55 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="ru" class="scroll-smooth scroll-pt-32">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Ventaoo | Interior Designer</title>
+    <title>Ventaoo | Интерьерный Дизайн</title>
+    <meta name="description" content="Личное портфолио Ventaoo, дизайнера интерьеров" />
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <script>
       tailwind.config = {
         theme: {
           extend: {
             fontFamily: {
-              sans: ['Helvetica Neue', 'Arial', 'sans-serif'],
-              serif: ['Georgia', 'Cambria', 'Times New Roman', 'serif'],
+              serif: ['"Cormorant Garamond"', 'serif'],
+              sans: ['"Inter"', 'sans-serif'],
             },
             colors: {
-              stone: {
-                50: '#fafaf9',
-                100: '#f5f5f4',
-                200: '#e7e5e4',
-                300: '#d6d3d1',
-                400: '#a8a29e',
-                500: '#78716c',
-                600: '#57534e',
-                800: '#292524',
-                900: '#1c1917',
-                950: '#0c0a09',
+              cream: {
+                50: '#FAF9F6',
+                100: '#F4F1EA', // Main background
+                200: '#E6E2D6',
+              },
+              charcoal: {
+                DEFAULT: '#2A2826', // Main text
+                light: '#4A4846',
+              },
+              avocado: {
+                DEFAULT: '#7C9070', // Theme Color
+                light: '#9CAF88',
+                dark: '#5F6F52'
+              },
+              olive: {
+                DEFAULT: '#5F6F52',
               }
             },
             animation: {
-              'fade-in': 'fadeIn 1s ease-out forwards',
+              'float': 'float 6s ease-in-out infinite',
+              'spin-slow': 'spin 12s linear infinite',
+              'marquee': 'marquee 45s linear infinite',
+            },
+            keyframes: {
+              float: {
+                '0%, 100%': { transform: 'translateY(0)' },
+                '50%': { transform: 'translateY(-20px)' },
+              },
+              marquee: {
+                '0%': { transform: 'translateX(0%)' },
+                '100%': { transform: 'translateX(-100%)' },
+              }
             }
           }
         }
@@ -44,39 +65,21 @@
           -ms-overflow-style: none;  /* IE and Edge */
           scrollbar-width: none;  /* Firefox */
       }
-
-      /* Apple-style Scroll Reveal Utilities */
-      .reveal-on-scroll {
-        opacity: 0;
-        transform: translateY(30px);
-        transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1), transform 1s cubic-bezier(0.16, 1, 0.3, 1);
-        will-change: opacity, transform;
-      }
-
-      .reveal-on-scroll.is-visible {
-        opacity: 1;
-        transform: translateY(0);
-      }
-      
-      /* Stagger delays */
-      .delay-100 { transition-delay: 100ms; }
-      .delay-200 { transition-delay: 200ms; }
-      .delay-300 { transition-delay: 300ms; }
     </style>
   <script type="importmap">
 {
   "imports": {
-    "react": "https://aistudiocdn.com/react@^19.2.0",
     "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.0/",
-    "@google/genai": "https://aistudiocdn.com/@google/genai@^1.30.0",
+    "lucide-react": "https://aistudiocdn.com/lucide-react@^0.554.0",
+    "react": "https://aistudiocdn.com/react@^19.2.0",
     "react/": "https://aistudiocdn.com/react@^19.2.0/"
   }
 }
 </script>
 <link rel="stylesheet" href="/index.css">
 </head>
-  <body class="bg-stone-50 text-stone-900 antialiased selection:bg-stone-800 selection:text-white">
+  <body class="bg-cream-100 text-charcoal antialiased selection:bg-avocado selection:text-white">
     <div id="root"></div>
-    <script type="module" src="/index.tsx"></script>
-  </body>
+  <script type="module" src="/index.tsx"></script>
+</body>
 </html>

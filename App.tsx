@@ -1,61 +1,53 @@
+
 import React, { useState, useEffect } from 'react';
 import { Navigation } from './components/Navigation';
 import { Hero } from './components/Hero';
 import { Philosophy } from './components/Philosophy';
 import { Portfolio } from './components/Portfolio';
-import { Contact } from './components/Contact';
 import { Footer } from './components/Footer';
-import { Section } from './types';
+import { SectionId } from './types';
 
-const App: React.FC = () => {
-  const [activeSection, setActiveSection] = useState<Section>(Section.HOME);
+type Page = 'home' | 'work';
 
-  const scrollToSection = (section: Section) => {
-    setActiveSection(section);
-    const element = document.getElementById(section);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
+function App() {
+  const [page, setPage] = useState<Page>('home');
+
+  // smooth scroll to top on page change
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, [page]);
+
+  const handleNavigate = (targetPage: Page, sectionId?: string) => {
+    setPage(targetPage);
+    
+    // If navigating to a specific section on the home page (like #philosophy)
+    if (targetPage === 'home' && sectionId) {
+      // Small timeout to allow render
+      setTimeout(() => {
+        const element = document.getElementById(sectionId);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 100);
     }
   };
 
-  // Scroll Reveal Observer
-  useEffect(() => {
-    const observerOptions = {
-      root: null,
-      rootMargin: '0px',
-      threshold: 0.1
-    };
-
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('is-visible');
-          observer.unobserve(entry.target); // Only animate once
-        }
-      });
-    }, observerOptions);
-
-    const elements = document.querySelectorAll('.reveal-on-scroll');
-    elements.forEach((el) => observer.observe(el));
-
-    return () => observer.disconnect();
-  }, []); // Run once on mount
-
   return (
-    <div className="bg-stone-50 min-h-screen flex flex-col font-sans">
-      <Navigation activeSection={activeSection} scrollToSection={scrollToSection} />
+    <main className="w-full overflow-hidden min-h-screen bg-cream-100">
+      <Navigation currentPage={page} onNavigate={handleNavigate} />
       
-      <main>
-        {/* Changed onExplore to point to Philosophy (Profile) instead of Works */}
-        <Hero id={Section.HOME} onExplore={() => scrollToSection(Section.PHILOSOPHY)} />
-        <Philosophy id={Section.PHILOSOPHY} />
-        <Portfolio id={Section.WORKS} />
-        <Contact id={Section.CONTACT} />
-      </main>
-
-      <Footer />
-    </div>
+      {page === 'home' ? (
+        <>
+          <Hero />
+          <Philosophy onNavigateToWork={() => handleNavigate('work')} />
+          <Footer />
+        </>
+      ) : (
+        <Portfolio />
+      )}
+      
+    </main>
   );
-};
+}
 
 export default App;

@@ -1,54 +1,84 @@
 
 import React from 'react';
-import { IMAGES } from '../constants/images';
+import { Reveal } from './ui/Reveal';
+import { SectionId } from '../types';
+import { CONFIG } from '../data';
+import { ArrowRight } from 'lucide-react';
 
 interface PhilosophyProps {
-  id: string;
+  onNavigateToWork: () => void;
 }
 
-export const Philosophy: React.FC<PhilosophyProps> = ({ id }) => {
+export const Philosophy: React.FC<PhilosophyProps> = ({ onNavigateToWork }) => {
   return (
-    <section id={id} className="py-24 md:py-32 px-6 bg-stone-100">
-      <div className="max-w-7xl mx-auto">
+    <section id={SectionId.PHILOSOPHY} className="py-24 bg-cream-50 text-charcoal relative">
+      <div className="max-w-7xl mx-auto px-6">
+        
         <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
-          
-          <div className="order-2 md:order-1 relative reveal-on-scroll">
-            <div className="aspect-[3/4] overflow-hidden bg-stone-200 shadow-xl">
-               <img 
-                src={IMAGES.PHILOSOPHY.PORTRAIT}
-                alt="Portrait" 
-                className="w-full h-full object-cover hover:scale-105 transition-transform duration-[1.5s] ease-out"
-              />
-            </div>
-          </div>
-
-          <div className="order-1 md:order-2 space-y-8 reveal-on-scroll delay-100">
-            <h3 className="text-4xl md:text-5xl font-serif text-stone-900 leading-tight">
-              A personal dialogue <br/> with your environment.
-            </h3>
-            
-            <div className="w-12 h-0.5 bg-stone-900"></div>
-            
-            {/* Darkened text colors for readability */}
-            <p className="text-stone-800 text-lg leading-relaxed font-light">
-              I am <span className="font-medium text-stone-900">Ventaoo</span>. My approach to interior design is deeply rooted in the belief that our surroundings shape our thoughts. I move away from the cluttered and the loud, finding solace in negative space and natural textures.
-            </p>
-            <p className="text-stone-800 text-lg leading-relaxed font-light">
-               This is not a firm; it is a personal studio. Every line drawn and every fabric chosen passes through my hands. I treat each project not as a job, but as a curation of life's backdrop.
-            </p>
-            
-            <div className="pt-8 grid grid-cols-2 gap-8">
-              <div>
-                <h4 className="text-sm uppercase tracking-widest font-bold text-stone-950 mb-3">Simplicity</h4>
-                <p className="text-sm text-stone-800 font-medium leading-relaxed">Removing the non-essential to reveal the essential.</p>
+           {/* Sticky Image Area */}
+           <div className="relative h-[600px] hidden md:block sticky top-32">
+              <div className="absolute top-0 right-10 w-3/4 h-3/4 z-10">
+                <Reveal width="100%" delay={0.2}>
+                   <img src={CONFIG.images.philosophy.light} className="w-full h-full object-cover rounded-sm grayscale hover:grayscale-0 transition-all duration-700 shadow-xl" alt="Light" />
+                </Reveal>
               </div>
-              <div>
-                <h4 className="text-sm uppercase tracking-widest font-bold text-stone-950 mb-3">Texture</h4>
-                <p className="text-sm text-stone-800 font-medium leading-relaxed">Engaging the senses through organic materials.</p>
+              <div className="absolute bottom-0 left-0 w-2/3 h-2/3 z-20">
+                 <Reveal width="100%" delay={0.4} direction="up">
+                   <img src={CONFIG.images.philosophy.texture} className="w-full h-full object-cover rounded-sm border-4 border-cream-50 shadow-2xl" alt="Texture" />
+                 </Reveal>
               </div>
-            </div>
-          </div>
+           </div>
 
+           {/* Content */}
+           <div className="flex flex-col justify-center py-12">
+              <Reveal>
+                 <h2 className="font-serif text-5xl md:text-7xl mb-12 text-charcoal leading-tight">
+                   Не студия. <br/>
+                   <span className="text-avocado-dark italic">Философия.</span>
+                 </h2>
+              </Reveal>
+
+              <div className="space-y-16">
+                 <Reveal delay={0.1}>
+                   <div className="group">
+                     <h3 className="text-2xl font-serif italic text-avocado-dark mb-2 group-hover:text-avocado transition-colors">01. Совершенное Несовершенство</h3>
+                     <p className="text-lg text-charcoal/70 font-light leading-relaxed">
+                       Я принимаю ваби-саби. Потертое дерево, старая латунь и текстурная глина рассказывают историю, которую полированный мрамор никогда не расскажет. Ваш дом должен жить вместе с вами.
+                     </p>
+                   </div>
+                 </Reveal>
+
+                 <Reveal delay={0.2}>
+                   <div className="group">
+                     <h3 className="text-2xl font-serif italic text-avocado-dark mb-2 group-hover:text-avocado transition-colors">02. Свет как Материал</h3>
+                     <p className="text-lg text-charcoal/70 font-light leading-relaxed">
+                       Прежде чем нарисовать хоть одну стену, я изучаю солнце. Естественный свет — это основной материал; я лишь скульптурирую поверхности, чтобы поймать его.
+                     </p>
+                   </div>
+                 </Reveal>
+
+                 <Reveal delay={0.3}>
+                   <div className="group">
+                     <h3 className="text-2xl font-serif italic text-avocado-dark mb-2 group-hover:text-avocado transition-colors">03. Игривая Геометрия</h3>
+                     <p className="text-lg text-charcoal/70 font-light leading-relaxed">
+                       Серьезный дизайн — это скучно. Я использую неожиданные изгибы, смелые цвета и нестандартные формы, чтобы нарушить жесткость современной жизни.
+                     </p>
+                   </div>
+                 </Reveal>
+
+                 <Reveal delay={0.4}>
+                   <div className="pt-8">
+                     <button 
+                       onClick={onNavigateToWork}
+                       className="group flex items-center gap-4 px-8 py-4 bg-charcoal text-cream-100 rounded-full hover:bg-avocado transition-all duration-300"
+                     >
+                        <span className="font-serif italic text-xl">Смотреть проекты</span>
+                        <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                     </button>
+                   </div>
+                 </Reveal>
+              </div>
+           </div>
         </div>
       </div>
     </section>

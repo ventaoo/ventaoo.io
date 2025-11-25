@@ -1,20 +1,20 @@
 export interface Project {
-  id: string;
+  id: number;
   title: string;
   category: string;
+  year: string;
   image: string;
-  description: string;
+  size?: string; // 'tall' | 'wide' | 'regular'
 }
 
-export interface ChatMessage {
-  role: 'user' | 'model';
-  text: string;
-  isError?: boolean;
+export interface NavItem {
+  label: string;
+  href: string;
 }
 
-export enum Section {
-  HOME = 'home',
+export enum SectionId {
+  HERO = 'home',
   PHILOSOPHY = 'philosophy',
-  WORKS = 'works',
-  CONTACT = 'contact'
+  WORK = 'work',
+  CONTACT = 'contact',
 }

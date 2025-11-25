@@ -1,113 +1,66 @@
 
-import React, { useState } from 'react';
-import { Project } from '../types';
-import { IMAGES } from '../constants/images';
+import React from 'react';
+import { SectionId } from '../types';
+import { Reveal } from './ui/Reveal';
+import { CONFIG } from '../data';
 
-interface PortfolioProps {
-  id: string;
-}
-
-const PROJECTS: Project[] = [
-  { 
-    id: '1', 
-    title: 'Maison de Silence', 
-    category: 'Residential • Jing\'an', 
-    image: IMAGES.PORTFOLIO.PROJECT_1, 
-    description: 'A wabi-sabi inspired apartment emphasizing raw travertine and natural light.' 
-  },
-  { 
-    id: '2', 
-    title: 'Atelier 52', 
-    category: 'Commercial • Xuhui', 
-    image: IMAGES.PORTFOLIO.PROJECT_2, 
-    description: 'A minimalist workspace designed for clarity and collaboration.' 
-  },
-  { 
-    id: '3', 
-    title: 'The Clay House', 
-    category: 'Residential • French Concession', 
-    image: IMAGES.PORTFOLIO.PROJECT_3, 
-    description: 'Restoration of a historic lane house using organic clay plasters.' 
-  },
-  { 
-    id: '4', 
-    title: 'Kyoto Echo', 
-    category: 'Hospitality • Huangpu', 
-    image: IMAGES.PORTFOLIO.PROJECT_4, 
-    description: 'A modern tea house blending traditional Japanese joinery with brutalist elements.' 
-  },
-  { 
-    id: '5', 
-    title: 'Gallery Void', 
-    category: 'Cultural • West Bund', 
-    image: IMAGES.PORTFOLIO.PROJECT_5, 
-    description: 'Art exhibition space designed to disappear behind the artwork.' 
-  },
-  { 
-    id: '6', 
-    title: 'Obsidian Penthouse', 
-    category: 'Residential • Lujiazui', 
-    image: IMAGES.PORTFOLIO.PROJECT_6, 
-    description: 'Dark tones and walnut wood creating a moody, intimate atmosphere.' 
-  },
-];
-
-export const Portfolio: React.FC<PortfolioProps> = ({ id }) => {
+export const Portfolio: React.FC = () => {
   return (
-    <section id={id} className="py-24 bg-stone-50">
-      <div className="max-w-7xl mx-auto px-6">
-        <div className="flex flex-col md:flex-row justify-between items-end mb-20 border-b border-stone-200 pb-8 reveal-on-scroll">
-          <div>
-            <span className="text-xs uppercase tracking-[0.3em] text-stone-600 font-bold">Selected Works</span>
-            <h3 className="text-4xl md:text-5xl font-serif text-stone-900 mt-4">Spatial Narratives</h3>
-          </div>
-          <div className="hidden md:block text-right">
-             <p className="text-stone-600 font-normal text-sm tracking-wide leading-relaxed">
-               Interiors / Architecture / Styling <br/> 
-               <span className="opacity-70">2020 — Present</span>
-             </p>
-          </div>
+    <section id={SectionId.WORK} className="pt-40 pb-32 px-6 bg-cream-100 min-h-screen">
+      <div className="max-w-7xl mx-auto">
+        <div className="flex flex-col items-center text-center mb-24">
+          <Reveal>
+            <span className="font-mono text-xs uppercase tracking-widest text-avocado mb-4 block">Избранные проекты</span>
+          </Reveal>
+          <Reveal delay={0.1}>
+            <h2 className="font-serif text-6xl md:text-8xl text-charcoal">Визуальный Дневник</h2>
+          </Reveal>
+          <Reveal delay={0.2}>
+            <p className="mt-8 text-charcoal/60 font-light max-w-lg leading-relaxed">
+              Коллекция пространств, созданных для жизни, а не только для глаз. 
+              Каждый проект — это диалог между архитектурой и жителем.
+            </p>
+          </Reveal>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-16 gap-x-8">
-          {PROJECTS.map((project, index) => (
-            <div 
-              key={project.id}
-              className={`relative group cursor-pointer reveal-on-scroll ${index === 1 || index === 4 ? 'md:translate-y-16' : ''}`} 
-              style={{ transitionDelay: `${index * 100}ms` }}
-            >
-              <div className="overflow-hidden aspect-[4/5] bg-stone-200 relative shadow-md">
-                
-                {/* Description Overlay - Appears on Hover without shifting layout */}
-                <div className="absolute inset-0 bg-stone-900/80 z-20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center p-8 text-center backdrop-blur-[2px]">
-                    <p className="text-stone-50 font-serif text-lg italic leading-relaxed translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
-                        "{project.description}"
-                    </p>
-                </div>
+        {/* Dynamic Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8 gap-y-24">
+          {CONFIG.images.portfolio.map((project, i) => {
+            // Layout Logic: Alternating spans for a more organic feel
+            const colSpan = project.size === 'wide' ? 'lg:col-span-8' 
+                          : project.size === 'tall' ? 'lg:col-span-5' 
+                          : 'lg:col-span-6';
+            
+            // Offset logic for "scattered" look
+            const offset = (i % 2 !== 0) ? 'lg:mt-24' : '';
 
-                <img 
-                  src={project.image} 
-                  alt={project.title}
-                  className="w-full h-full object-cover transition-transform duration-[1.2s] ease-out group-hover:scale-105"
-                />
+            return (
+              <div key={project.id} className={`${colSpan} ${offset} group`}>
+                <Reveal delay={i * 0.1} width="100%">
+                  <div className="relative overflow-hidden">
+                    <div className="overflow-hidden mb-6">
+                      <img 
+                        src={project.src} 
+                        alt={project.title} 
+                        className={`w-full object-cover grayscale-[20%] group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700 ease-out
+                          ${project.size === 'tall' ? 'aspect-[3/4]' : project.size === 'wide' ? 'aspect-[16/9]' : 'aspect-square'}
+                        `}
+                      />
+                    </div>
+                    
+                    <div className="flex justify-between items-end border-b border-charcoal/20 pb-4 group-hover:border-avocado transition-colors duration-500">
+                      <div>
+                         <span className="block font-mono text-xs text-charcoal/60 mb-1">{project.category} — {project.year}</span>
+                         <h3 className="font-serif text-3xl md:text-4xl text-charcoal group-hover:text-avocado transition-colors duration-300">
+                           {project.title}
+                         </h3>
+                      </div>
+                    </div>
+                  </div>
+                </Reveal>
               </div>
-              
-              {/* Static Text Below */}
-              <div className="mt-6">
-                <div className="flex justify-between items-baseline">
-                   <h4 className="text-xl font-serif text-stone-900 group-hover:text-stone-600 transition-colors">{project.title}</h4>
-                   <span className="text-[10px] uppercase tracking-widest border border-stone-300 px-2 py-1 text-stone-600 font-medium">{project.category.split('•')[0].trim()}</span>
-                </div>
-                <p className="text-xs uppercase tracking-widest text-stone-500 mt-2 font-medium">{project.category.split('•')[1]?.trim()}</p>
-              </div>
-            </div>
-          ))}
-        </div>
-
-        <div className="mt-32 text-center reveal-on-scroll">
-            <button className="px-8 py-3 border border-stone-900 text-stone-900 text-xs uppercase tracking-[0.2em] hover:bg-stone-900 hover:text-white transition-colors duration-300">
-                Full Archive
-            </button>
+            );
+          })}
         </div>
       </div>
     </section>
