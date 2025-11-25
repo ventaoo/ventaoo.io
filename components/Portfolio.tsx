@@ -1,5 +1,7 @@
+
 import React, { useState } from 'react';
 import { Project } from '../types';
+import { IMAGES } from '../constants/images';
 
 interface PortfolioProps {
   id: string;
@@ -10,42 +12,42 @@ const PROJECTS: Project[] = [
     id: '1', 
     title: 'Maison de Silence', 
     category: 'Residential • Jing\'an', 
-    image: 'https://images.unsplash.com/photo-1616486338812-3dadae4b4f9d?q=80&w=1200', 
+    image: IMAGES.PORTFOLIO.PROJECT_1, 
     description: 'A wabi-sabi inspired apartment emphasizing raw travertine and natural light.' 
   },
   { 
     id: '2', 
     title: 'Atelier 52', 
     category: 'Commercial • Xuhui', 
-    image: 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?q=80&w=1200', 
+    image: IMAGES.PORTFOLIO.PROJECT_2, 
     description: 'A minimalist workspace designed for clarity and collaboration.' 
   },
   { 
     id: '3', 
     title: 'The Clay House', 
     category: 'Residential • French Concession', 
-    image: 'https://images.unsplash.com/photo-1631679706909-1844bbd07221?q=80&w=1200', 
+    image: IMAGES.PORTFOLIO.PROJECT_3, 
     description: 'Restoration of a historic lane house using organic clay plasters.' 
   },
   { 
     id: '4', 
     title: 'Kyoto Echo', 
     category: 'Hospitality • Huangpu', 
-    image: 'https://images.unsplash.com/photo-1598928506311-c55ded91a20c?q=80&w=1200', 
+    image: IMAGES.PORTFOLIO.PROJECT_4, 
     description: 'A modern tea house blending traditional Japanese joinery with brutalist elements.' 
   },
   { 
     id: '5', 
     title: 'Gallery Void', 
     category: 'Cultural • West Bund', 
-    image: 'https://images.unsplash.com/photo-1560185893-a55cbc8c57e8?q=80&w=1200', 
+    image: IMAGES.PORTFOLIO.PROJECT_5, 
     description: 'Art exhibition space designed to disappear behind the artwork.' 
   },
   { 
     id: '6', 
     title: 'Obsidian Penthouse', 
     category: 'Residential • Lujiazui', 
-    image: 'https://images.unsplash.com/photo-1600585152220-90363fe7e115?q=80&w=1200', 
+    image: IMAGES.PORTFOLIO.PROJECT_6, 
     description: 'Dark tones and walnut wood creating a moody, intimate atmosphere.' 
   },
 ];

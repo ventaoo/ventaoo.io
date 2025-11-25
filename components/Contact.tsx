@@ -1,4 +1,6 @@
+
 import React from 'react';
+import { IMAGES } from '../constants/images';
 
 interface ContactProps {
   id: string;
@@ -51,7 +53,7 @@ export const Contact: React.FC<ContactProps> = ({ id }) => {
 
           <div className="relative h-[600px] bg-stone-200 overflow-hidden hidden md:block reveal-on-scroll delay-100 shadow-xl">
             <img 
-                src="https://images.unsplash.com/photo-1505691938895-1758d7fab541?q=80&w=1000" 
+                src={IMAGES.CONTACT.FEATURE}
                 alt="Interior Detail" 
                 className="w-full h-full object-cover opacity-90 hover:scale-105 transition-transform duration-[2s] ease-out"
             />

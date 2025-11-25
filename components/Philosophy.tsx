@@ -1,4 +1,6 @@
+
 import React from 'react';
+import { IMAGES } from '../constants/images';
 
 interface PhilosophyProps {
   id: string;
@@ -13,7 +15,7 @@ export const Philosophy: React.FC<PhilosophyProps> = ({ id }) => {
           <div className="order-2 md:order-1 relative reveal-on-scroll">
             <div className="aspect-[3/4] overflow-hidden bg-stone-200 shadow-xl">
                <img 
-                src="https://picsum.photos/800/1000?blur=1" 
+                src={IMAGES.PHILOSOPHY.PORTRAIT}
                 alt="Portrait" 
                 className="w-full h-full object-cover hover:scale-105 transition-transform duration-[1.5s] ease-out"
               />

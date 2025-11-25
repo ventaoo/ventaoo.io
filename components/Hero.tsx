@@ -1,5 +1,7 @@
+
 import React from 'react';
 import { Section } from '../types';
+import { IMAGES } from '../constants/images';
 
 interface HeroProps {
   id: string;
@@ -12,7 +14,7 @@ export const Hero: React.FC<HeroProps> = ({ id, onExplore }) => {
       {/* Background Image */}
       <div className="absolute inset-0 z-0">
         <img 
-          src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?q=80&w=2000&auto=format&fit=crop" 
+          src={IMAGES.HERO.BACKGROUND}
           alt="Ventaoo Interior Design" 
           className="w-full h-full object-cover opacity-90 scale-105 animate-[kenburns_20s_infinite_alternate]"
         />
